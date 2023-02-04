@@ -27,7 +27,6 @@ const storeCompanyDetails = async () => {
         companyDetailsBySector.data.map((company) => {
              if (company.companyId === companyId) {
                 companyScore = ((company.performanceIndex[0].value * 10) + (company.performanceIndex[1].value / 10000) + (company.performanceIndex[2].value * 10) + (company.performanceIndex[3].value))/4;
-
              }
          });
 
@@ -52,4 +51,15 @@ const getCompanyDetailsInRankingOrder = async (sector) => {
     const resultCompanyData = await db.CompanyDetails.findAll({where:{companySector:sector}},{attributes: ['id','companyName','companyScore'],order: [['companyScore', 'DESC']]});
     return resultCompanyData;
 }
-module.exports = { storeCompanyDetails ,getCompanyDetailsInRankingOrder};
+
+
+const updateCompanyDetailsInDb = async (companyId,ceoName) => {
+    const resultCompanyData = await db.CompanyDetails.update({ ceoName: ceoName }, {
+        where: {
+            id: companyId
+        }
+    });
+   // console.log(companyName)
+    return resultCompanyData;
+}
+module.exports = { storeCompanyDetails ,getCompanyDetailsInRankingOrder,updateCompanyDetailsInDb};

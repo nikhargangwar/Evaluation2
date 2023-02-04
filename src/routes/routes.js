@@ -7,6 +7,8 @@ companyRouter.get('/save',companyController.postCompanyDetailsController);
 
 companyRouter.get('/:id',companyController.getCompanyDetailsController);
 
+companyRouter.patch('/:id',companyController.updateCompanyDetailsController);
+
 //userRouter.post('/',userController.postUserController);
 
 module.exports=companyRouter;

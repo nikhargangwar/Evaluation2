@@ -32,10 +32,27 @@ const  getCompanyDetailsController = async(req,res)=>{
     }
 }
 
-// const postUserController = (req,res)=>{
-//     const result = userServices.postUserdata(req.body);
-//     return res.status(201).json(result);
-// };
+const updateCompanyDetailsController = async(req,res)=>{
+    try{
+       // console.log(req.query)
+        const companyId =  req.params.id;
+        const {ceoName} =  req.body;
+
+        const result = await companyServices.updateCompanyDetailsInDb(companyId,ceoName);
+        if (result) {
+            return res.json({ message: 'item updated' });
+        }
+        else {
+            return res.json({ message: 'no such item exist' });
+        }
+        }
+        catch (err) {
+            if (err instanceof HTTPError) {
+                return res.status(err.code).send({ message: err.message });
+            }
+            res.status(500).send(err.message);
+        }
+}
 
 
-module.exports= {postCompanyDetailsController,getCompanyDetailsController};
+module.exports= {postCompanyDetailsController,getCompanyDetailsController,updateCompanyDetailsController};
