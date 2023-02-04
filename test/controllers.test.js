@@ -80,4 +80,20 @@ const services = require('../src/services/services.js');
         });
     });
 
+    describe('controller testing to update company data', () => {
+        it('should update company details', async () => {
+            jest.spyOn(services, 'updateCompanyDetailsInDb').mockResolvedValue(1);
+            const mockreq = {params:{
+                id:1
+            },body:{
+                ceo:'Nikhar'
+            }};
+            const mockres = {
+                json: jest.fn()
+            };
+            await controllers.updateCompanyDetailsController(mockreq, mockres);
+            expect(mockres.json).toHaveBeenCalledWith({message:"item updated"});
+        });
+    });
+
     

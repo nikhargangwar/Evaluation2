@@ -28,7 +28,7 @@ const  getCompanyDetailsController = async(req,res)=>{
         if (err instanceof HTTPError) {
             return res.status(err.code).send({ message: err.message });
         }
-        res.status(500).send(err.message);
+        res.send(err.message);
     }
 }
 
@@ -48,9 +48,9 @@ const updateCompanyDetailsController = async(req,res)=>{
         }
         catch (err) {
             if (err instanceof HTTPError) {
-                return res.status(err.code).send({ message: err.message });
+                return res.json({ message: err.message });
             }
-            res.status(500).send(err.message);
+            res.json(err.message);
         }
 }
 
