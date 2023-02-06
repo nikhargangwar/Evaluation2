@@ -1,6 +1,7 @@
 
 const controllers = require('../src/controllers/controllers.js');
 const services = require('../src/services/services.js');
+const { HTTPError } = require('../src/utils/httperror.js');
 
     describe('controller testing to get company data', () => {
         it('should return all tasks', async () => {
@@ -77,6 +78,47 @@ const services = require('../src/services/services.js');
                     "createdAt": "2023-02-03T09:46:08.563Z",
                     "updatedAt": "2023-02-03T09:46:08.563Z"
                 }]);
+        });
+    });
+
+    describe('controller testing to get company data', () => {
+        it('should not return any task for invalid sector', async () => {
+            const err = new HTTPError(404, 'No such company with given sector found')
+            jest.spyOn(services, 'getCompanyDetailsInRankingOrder').mockRejectedValue(
+                err
+            );
+            const mockreq = {query:{
+                sector:"abc"
+            }};
+            const mockres = {
+                status:jest.fn().mockReturnThis(),
+                send: jest.fn()
+            };
+            await controllers.getCompanyDetailsController(mockreq, mockres);
+         
+            expect(mockres.status).toHaveBeenCalledWith(404);
+            expect(mockres.send).toHaveBeenCalledWith({message:'No such company with given sector found'});
+        });
+    });
+    describe('controller testing to update company data', () => {
+        it('should return error as no such company exist', async () => {
+            const err = new HTTPError(404, 'No such company found')
+
+            jest.spyOn(services, 'updateCompanyDetailsInDb').mockRejectedValue(
+                err
+            );
+            const mockreq = {params:{
+                id:134
+            },body:{
+                ceo:'Nikhar'
+            }};
+            const mockres = {
+                status:jest.fn().mockReturnThis(),
+                json: jest.fn()
+            };
+            await controllers.updateCompanyDetailsController(mockreq, mockres);
+            expect(mockres.status).toHaveBeenCalledWith(404);       
+            expect(mockres.json).toHaveBeenCalledWith({message:"No such company found"});
         });
     });
 

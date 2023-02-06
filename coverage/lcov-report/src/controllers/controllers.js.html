@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">64.28% </span>
+                <span class="strong">78.57% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>18/28</span>
+                <span class='fraction'>22/28</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">12.5% </span>
+                <span class="strong">37.5% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/8</span>
+                <span class='fraction'>3/8</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">64.28% </span>
+                <span class="strong">78.57% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>18/28</span>
+                <span class='fraction'>22/28</span>
             </div>
         
             
@@ -120,7 +120,8 @@
 <a name='L55'></a><a href='#L55'>55</a>
 <a name='L56'></a><a href='#L56'>56</a>
 <a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -142,35 +143,36 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -178,7 +180,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">const companyServices = require( '../services/services.js');
-const HTTPError = require('../utils/httperror.js');
+const {HTTPError} = require('../utils/httperror.js');
 &nbsp;
 const postCompanyDetailsController = async(req,res)=&gt;{
 &nbsp;
@@ -191,7 +193,7 @@ const postCompanyDetailsController = async(req,res)=&gt;{
     }
     catch (err) {
 <span class="cstat-no" title="statement not covered" >        if (err instanceof HTTPError) {</span>
-<span class="cstat-no" title="statement not covered" >            return res.status(err.code).send({ message: err.message });</span>
+<span class="cstat-no" title="statement not covered" >            return res.status(err.statusCode).send({ message: err.message });</span>
         }
 <span class="cstat-no" title="statement not covered" >        res.status(500).send(err.message);</span>
     }
@@ -201,13 +203,14 @@ const postCompanyDetailsController = async(req,res)=&gt;{
 const  getCompanyDetailsController = async(req,res)=&gt;{
     try{
     const {sector} =  req.query;
+    
     res.send(await companyServices.getCompanyDetailsInRankingOrder(sector))
     }
     catch (err) {
-<span class="cstat-no" title="statement not covered" >        if (err instanceof HTTPError) {</span>
-<span class="cstat-no" title="statement not covered" >            return res.status(err.code).send({ message: err.message });</span>
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (err instanceof HTTPError) {
+            return res.status(err.statusCode).send({ message: err.message });
         }
-<span class="cstat-no" title="statement not covered" >        res.send(err.message);</span>
+<span class="cstat-no" title="statement not covered" >        res.status(500).send(err.message);</span>
     }
 }
 &nbsp;
@@ -218,16 +221,16 @@ const updateCompanyDetailsController = async(req,res)=&gt;{
         const {ceoName} =  req.body;
 &nbsp;
         const result = await companyServices.updateCompanyDetailsInDb(companyId,ceoName);
-        if (result) {
-            return res.json({ message: 'item updated' });
-        }
-        else <span class="missing-if-branch" title="else path not taken" >E</span>{
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (result===0) {
 <span class="cstat-no" title="statement not covered" >            return res.json({ message: 'no such item exist' });</span>
+        }
+        else {
+            return res.json({ message: 'item updated' });
         }
         }
         catch (err) {
-<span class="cstat-no" title="statement not covered" >            if (err instanceof HTTPError) {</span>
-<span class="cstat-no" title="statement not covered" >                return res.json({ message: err.message });</span>
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (err instanceof HTTPError) {
+                return res.status(err.statusCode).json({ message: err.message });
             }
 <span class="cstat-no" title="statement not covered" >            res.json(err.message);</span>
         }
@@ -241,7 +244,7 @@ module.exports= {postCompanyDetailsController,getCompanyDetailsController,update
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-02-04T20:15:48.185Z
+                at 2023-02-06T07:32:59.116Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

@@ -1,7 +1,8 @@
 
 const axios = require('axios');
 const  db = require('../../models');
-
+// const  {HTTPError} = require('../utils/httperror.js');
+const {HTTPError} = require('../../src/utils/httperror.js')
 const storeCompanyDetails = async () => {
 
     const companySectorCsvData = await axios.get('https://store-0001.s3.amazonaws.com/input.csv');
@@ -42,6 +43,10 @@ const storeCompanyDetails = async () => {
 
     const resultCompanyData = await db.CompanyDetails.findAll({attributes: ['id','companyName','companyScore']});
     
+    if(resultCompanyData.length===0){
+        throw new HTTPError(404, 'database is empty');
+     }
+
     return resultCompanyData;
 
 };
@@ -49,13 +54,14 @@ const storeCompanyDetails = async () => {
 
 const getCompanyDetailsInRankingOrder = async (sector) => {
     const resultCompanyData = await db.CompanyDetails.findAll({where:{companySector:sector},order: [['companyScore', 'DESC']]},{attributes: ['id','companyName','companyScore']});
+    if(resultCompanyData.length===0){
+       throw new HTTPError(404, 'No such company with given sector found');
+    }
 
     resultCompanyData.forEach((element,index) => {
         element.dataValues.rank = index+1;
     });
-    if(!resultCompanyData){
-        return "No data found";
-    }
+
     return resultCompanyData;
 }
 
@@ -66,7 +72,12 @@ const updateCompanyDetailsInDb = async (companyId,ceoName) => {
             id: companyId
         }
     });
-   // console.log(companyName)
+
+    if(resultCompanyData[0]===0){
+        throw new HTTPError(404, 'No such company found');
+     }
+
+   
     return resultCompanyData;
 }
 module.exports = { storeCompanyDetails ,getCompanyDetailsInRankingOrder,updateCompanyDetailsInDb};

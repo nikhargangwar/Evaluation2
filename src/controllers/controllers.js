@@ -1,5 +1,5 @@
 const companyServices = require( '../services/services.js');
-const HTTPError = require('../utils/httperror.js');
+const {HTTPError} = require('../utils/httperror.js');
 
 const postCompanyDetailsController = async(req,res)=>{
 
@@ -12,7 +12,7 @@ const postCompanyDetailsController = async(req,res)=>{
     }
     catch (err) {
         if (err instanceof HTTPError) {
-            return res.status(err.code).send({ message: err.message });
+            return res.status(err.statusCode).send({ message: err.message });
         }
         res.status(500).send(err.message);
     }
@@ -22,11 +22,12 @@ const postCompanyDetailsController = async(req,res)=>{
 const  getCompanyDetailsController = async(req,res)=>{
     try{
     const {sector} =  req.query;
+    
     res.send(await companyServices.getCompanyDetailsInRankingOrder(sector))
     }
     catch (err) {
         if (err instanceof HTTPError) {
-            return res.status(err.code).send({ message: err.message });
+            return res.status(err.statusCode).send({ message: err.message });
         }
         res.status(500).send(err.message);
     }
@@ -39,16 +40,16 @@ const updateCompanyDetailsController = async(req,res)=>{
         const {ceoName} =  req.body;
 
         const result = await companyServices.updateCompanyDetailsInDb(companyId,ceoName);
-        if (result) {
-            return res.json({ message: 'item updated' });
+        if (result===0) {
+            return res.json({ message: 'no such item exist' });
         }
         else {
-            return res.json({ message: 'no such item exist' });
+            return res.json({ message: 'item updated' });
         }
         }
         catch (err) {
             if (err instanceof HTTPError) {
-                return res.json({ message: err.message });
+                return res.status(err.statusCode).json({ message: err.message });
             }
             res.json(err.message);
         }
