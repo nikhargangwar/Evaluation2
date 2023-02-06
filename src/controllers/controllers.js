@@ -28,7 +28,7 @@ const  getCompanyDetailsController = async(req,res)=>{
         if (err instanceof HTTPError) {
             return res.status(err.code).send({ message: err.message });
         }
-        res.send(err.message);
+        res.status(500).send(err.message);
     }
 }
 

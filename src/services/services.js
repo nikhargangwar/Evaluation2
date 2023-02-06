@@ -48,7 +48,14 @@ const storeCompanyDetails = async () => {
 
 
 const getCompanyDetailsInRankingOrder = async (sector) => {
-    const resultCompanyData = await db.CompanyDetails.findAll({where:{companySector:sector}},{attributes: ['id','companyName','companyScore'],order: [['companyScore', 'DESC']]});
+    const resultCompanyData = await db.CompanyDetails.findAll({where:{companySector:sector},order: [['companyScore', 'DESC']]},{attributes: ['id','companyName','companyScore']});
+
+    resultCompanyData.forEach((element,index) => {
+        element.dataValues.rank = index+1;
+    });
+    if(!resultCompanyData){
+        return "No data found";
+    }
     return resultCompanyData;
 }
 
